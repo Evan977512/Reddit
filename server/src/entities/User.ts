@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, In, OneToMany, BeforeInsert } from "typeorm";
+import { Entity, Column, Index, OneToMany, BeforeInsert } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import bcrypt from "bcryptjs";
 

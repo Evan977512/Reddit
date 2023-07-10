@@ -1,10 +1,11 @@
-import { BeforeInsert, Column, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import BaseEntity from "./Entity";
 import User from "./User";
 import Sub from "./Sub";
 import { Exclude, Expose } from "class-transformer";
 import { makeId, slugify } from "../utils/helpers";
 
+@Entity("posts")
 export default class Post extends BaseEntity {
   @Index()
   @Column()
