@@ -3,7 +3,7 @@ import { IsEmail, Length } from "class-validator";
 import bcrypt from "bcryptjs";
 
 @Entity("users")
-export class User {
+export default class User {
   @Index()
   @IsEmail(undefined, { message: "Must be a valid email address" })
   @Length(1, 255, { message: "Email is empty" })
