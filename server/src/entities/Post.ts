@@ -1,31 +1,33 @@
-import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import BaseEntity from "./Entity";
-import User from "./User";
-import Sub from "./Sub";
 import { Exclude, Expose } from "class-transformer";
+import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { makeId, slugify } from "../utils/helpers";
+import Comment from "./Comment";
+import BaseEntity from "./Entity";
+import Sub from "./Sub";
+import { User } from "./User";
+import Vote from "./Vote";
 
 @Entity("posts")
 export default class Post extends BaseEntity {
   @Index()
   @Column()
-  identifier: string; // 7 character id
+  identifier: string;
 
   @Column()
-  title: string; // title of post
+  title: string;
 
   @Index()
   @Column()
-  slug: string; // slug of post
+  slug: string;
 
   @Column({ nullable: true, type: "text" })
-  body: string; // body of post
+  body: string;
 
   @Column()
-  subName: string; // name of sub
+  subName: string;
 
   @Column()
-  username: string; // username of post creator
+  username: string;
 
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: "username", referencedColumnName: "username" })
@@ -44,7 +46,7 @@ export default class Post extends BaseEntity {
   votes: Vote[];
 
   @Expose() get url(): string {
-    return `r/${this.subName}/${this.identifier}/${this.slug}`;
+    return `/r/${this.subName}/${this.identifier}/${this.slug}`;
   }
 
   @Expose() get commentCount(): number {
@@ -59,7 +61,7 @@ export default class Post extends BaseEntity {
 
   setUserVote(user: User) {
     const index = this.votes?.findIndex((v) => v.username === user.username);
-    this.userVote = index > -1 ? this.votes[index] : 0;
+    this.userVote = index > -1 ? this.votes[index].value : 0;
   }
 
   @BeforeInsert()

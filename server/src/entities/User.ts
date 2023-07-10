@@ -1,9 +1,12 @@
 import { Entity, Column, Index, OneToMany, BeforeInsert } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import bcrypt from "bcryptjs";
+import Post from "./Post";
+import Vote from "./Vote";
+import BaseEntity from "./Entity";
 
 @Entity("users")
-export default class User {
+export class User extends BaseEntity {
   @Index()
   @IsEmail(undefined, { message: "Must be a valid email address" })
   @Length(1, 255, { message: "Email is empty" })
@@ -12,7 +15,7 @@ export default class User {
 
   @Index()
   @Length(3, 32, { message: "Must be at least 3 characters long" })
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
@@ -22,7 +25,7 @@ export default class User {
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 
-  @OneToMany(() => ValidationTypes, (vote) => vote.user)
+  @OneToMany(() => Vote, (vote) => vote.user)
   votes: Vote[];
 
   @BeforeInsert()

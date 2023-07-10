@@ -29,4 +29,4 @@ export function makeId(length) {
   return result;
 }
 
-console.log(makeid(5));
+console.log(makeId(5));
