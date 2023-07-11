@@ -10,12 +10,12 @@ interface InputGroupProps {
   setValue: (str: string) => void;
 }
 
-const inputGroup: React.FC<InputGroupProps> = ({
-  className = "mg-2",
+const InputGroup: React.FC<InputGroupProps> = ({
+  className = "mb-2",
   type = "text",
   placeholder = "",
-  value,
   error,
+  value,
   setValue,
 }) => {
   return (
@@ -24,7 +24,7 @@ const inputGroup: React.FC<InputGroupProps> = ({
         type={type}
         style={{ minWidth: 300 }}
         className={cls(
-          `w-full p-3 trnasition duration-200 border border-gray-400 rounded bg-gray-50 focus:bg-white hover:bg-white`,
+          `w-full p-3 transition duration-200 border border-gray-400 rounded bg-gray-50 focus:bg-white hover:bg-white`,
           { "border-red-500": error }
         )}
         placeholder={placeholder}
@@ -36,4 +36,4 @@ const inputGroup: React.FC<InputGroupProps> = ({
   );
 };
 
-export default inputGroup;
+export default InputGroup;
