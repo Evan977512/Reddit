@@ -82,7 +82,14 @@ const login = async (req: Request, res: Response) => {
     const token = jwt.sign({ username }, process.env.JWT_SECRET);
 
     // save token in cookie
-    res.set("Set-Cookie", cookie.serialize("token", token));
+    res.set(
+      "Set-Cookie",
+      cookie.serialize("token", token, {
+        httpOnly: true,
+        maxAge: 60 * 90,
+        path: "/",
+      })
+    );
 
     return res.json({ user, token });
   } catch (error) {
