@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/auth";
+import subRoutes from "./routes/subs";
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -17,6 +18,7 @@ dotenv.config();
 
 app.get("/", (_, res) => res.send("Hello World!"));
 app.use("/api/auth", authRoutes);
+app.use("/api/subs", subRoutes);
 
 let port = 4000;
 app.listen(port, async () => {
