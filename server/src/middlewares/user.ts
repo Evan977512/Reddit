@@ -7,6 +7,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   try {
     // check if the user is available is able to create sub
     const token = req.cookies.token;
+
     if (!token) return next();
 
     const { username }: any = jwt.verify(token, process.env.JWT_SECRET);
@@ -17,9 +18,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     // place user information to 'res.local.user'
     res.locals.user = user;
+    console.log(res.locals.user);
+
+    return next();
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error: "Something went wrong!!!! WHY!!????" });
+    return res.status(400).json({ error: "Something went wrong" });
   }
 };
 

@@ -5,6 +5,7 @@ import { Authprovider } from "../context/auth";
 
 export default function App({ Component, pageProps }: AppProps) {
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL + "/api";
+  axios.defaults.withCredentials = true;
   return (
     <Authprovider>
       <Component {...pageProps} />

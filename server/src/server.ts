@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth";
 import subRoutes from "./routes/subs";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors({ origin, credentials: true }));
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 dotenv.config();
 
@@ -22,7 +24,7 @@ app.use("/api/subs", subRoutes);
 
 let port = 4000;
 app.listen(port, async () => {
-  console.log(`server is running at http://localhost:${port}`);
+  console.log(`server running at ${process.env.APP_URL}`);
 
   AppDataSource.initialize()
     .then(() => {
